@@ -63,3 +63,8 @@ Two most important hooks
 
 - useState() - super powerful state variable in react
 - useEffect()
+
+# There are two types of routing that you can have in web application
+
+- Client side routing
+- Server side routing
