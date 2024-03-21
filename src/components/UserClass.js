@@ -10,31 +10,22 @@ class UserClass extends React.Component {
                 avatar_url: ""
             }
         }
-        console.log("Child constructor");
     }
 
-    async componentDidMount() {
-        console.log("Child Component Did Mount");
-
-        //API Call
-        const data = await fetch("https://api.github.com/users/akshaymarch7");
-        const json = await data.json();
-
-        this.setState({
-            userInfo: json,
-        })
+    componentDidMount() {
+        this.timer = setInterval(() => {
+            console.log("Namaste React")
+        }, 1000);
     }
 
     componentDidUpdate() {
-        console.log("Child component did update");
     }
 
     componentWillUnmount() {
-        console.log("Child Component Will unmount");
+        clearInterval(this.timer);
     }
 
     render() {
-        console.log("Child render");
         const { name, location, avatar_url } = this.state.userInfo;
 
         return (
