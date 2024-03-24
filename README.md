@@ -68,3 +68,12 @@ Two most important hooks
 
 - Client side routing
 - Server side routing
+
+# Redux Toolkit
+
+- Install @reduxjs/toolkit and react-redux
+- Build our store
+- Connect our store to our app
+- Create a slice(cart slice)
+- Dispatch an action
+- Read the data using selector
