@@ -1,8 +1,9 @@
-import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     //Local State variable
@@ -10,6 +11,10 @@ const Body = () => {
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredRestaurant, setFilteredrestaurant] = useState([]);
     const [searchText, setSearchText] = useState("");
+
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
+    const { setUserName, loggedInUser } = useContext(UserContext);
 
     useEffect(() => {
         console.log("UseEffect called");
@@ -59,10 +64,20 @@ const Body = () => {
                         setFilteredrestaurant(filteredList);
                     }}>Top Rated Restaurants</button>
                 </div>
+                <div className="m-4 p-4 flex items-center">
+                    <label>UserName :</label>
+                    <input
+                        className="border border-black p-2"
+                        value={loggedInUser}
+                        onChange={(e) => { setUserName(e.target.value) }}
+                    />
+                </div>
             </div>
             <div className="flex flex-wrap">
                 {filteredRestaurant.map(restaurant => (
-                    <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}><RestaurantCard resData={restaurant} /></Link>
+                    <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+                        {restaurant?.info?.promoted === undefined ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />}
+                    </Link>
                 ))}
             </div>
         </div>
